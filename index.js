@@ -8,8 +8,27 @@ const cityList = await cityResponse.json()
 
 cityDataList.innerHTML = "hi"
 
-function getCityNames() {
+// function getCityNames() {
+//     const cityNames = []
+//     for (let i = 0; i < cityList.length; i++) {
+//         const cityObj = cityList[i]
+//         const cityName = cityObj.name
+//         cityNames.push(cityName)
+//     }
+//     return cityNames
+// }
 
+// function getCityNames() {
+//     const cityNames = []
+//     for (const cityObj of cityList) {
+//         const cityName = cityObj.name
+//         cityNames.push(cityName)
+//     }
+//     return cityNames
+// }
+
+function getCityNames() {
+    return cityList.map((cityObj) => cityObj.name)
 }
 
 weatherBtn.addEventListener("click", function () {
@@ -29,3 +48,6 @@ weatherBtn.addEventListener("click", function () {
             console.log(e)
         })
 })
+
+const cityNames = getCityNames()
+console.log(cityNames)
