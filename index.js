@@ -4,9 +4,7 @@ const cityDataList = document.getElementById("cityList")
 const cityPromise = fetch("./cities500.json")
 const cityResponse = await cityPromise
 
-const cityList = await cityResponse.json()
-
-cityDataList.innerHTML = "hi"
+const cityList = (await cityResponse.json()).slice(0, 50)
 
 // function getCityNames() {
 //     const cityNames = []
@@ -31,6 +29,15 @@ function getCityNames() {
     return cityList.map((cityObj) => cityObj.name)
 }
 
+function cityDatasetOptions(cityNames) {
+    const options = []
+    for (let i = 0; i < cityNames.length; i++) {
+        const cityName = cityNames[i]
+        options.push(`<option value="${cityName}"></option>`)
+    }
+    return options
+}
+
 weatherBtn.addEventListener("click", function () {
     const key = `PJZ3FXN2MGCFQZ6B6BR3K34FE`
     const api = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${(locationQuery.value)}?unitGroup=us&key=${key}&contentType=json`
@@ -50,4 +57,5 @@ weatherBtn.addEventListener("click", function () {
 })
 
 const cityNames = getCityNames()
-console.log(cityNames)
+const datasetOptions = cityDatasetOptions(cityNames)
+cityDataList.innerHTML = datasetOptions.join("\n")
