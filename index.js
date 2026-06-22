@@ -98,7 +98,16 @@ weatherBtn.addEventListener("click", function () {
         })
         .then(function (data) {
             console.log(data)
-            weatherResult.innerHTML = data.currentConditions.conditions + data.currentConditions.temp + data.description
+            const temp = document.createElement('div')
+            const conditions = document.createElement('div')
+            const description = document.createElement('div')
+            weatherResult.append(temp, conditions, description)
+            temp.setAttribute('id', 'temp');
+            conditions.setAttribute('id', 'conditions');
+            description.setAttribute('id', 'decscription');
+            temp.innerHTML = data.currentConditions.temp
+            conditions.innerHTML = data.currentConditions.conditions
+            description.innerHTML = data.description
         })
         .catch(function (e) {
             console.log(e)
