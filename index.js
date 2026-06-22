@@ -2,12 +2,10 @@ const weatherBtn = document.getElementById("fetchWeatherBtn")
 const locationQuery = document.getElementById("cityInput")
 const cityDataList = document.getElementById("cityList")
 const cityPromise = fetch("./cities500.json")
+const weatherResult = document.getElementById("weatherResult")
 const cityResponse = await cityPromise
 
 let cityList = await cityResponse.json()
-
-console.log(cityList)
-console.log(cityList["New York"])
 
 // function combineCityNames() {
 //     const cityNames = []
@@ -55,7 +53,6 @@ function combineCityNames() {
 }
 
 cityList = combineCityNames()
-console.log(cityList)
 
 // function getCityNames() {
 //     const cityNames = []
@@ -101,6 +98,7 @@ weatherBtn.addEventListener("click", function () {
         })
         .then(function (data) {
             console.log(data)
+            weatherResult.innerHTML = data.currentConditions.conditions + data.currentConditions.temp + data.description
         })
         .catch(function (e) {
             console.log(e)
@@ -108,5 +106,5 @@ weatherBtn.addEventListener("click", function () {
 })
 
 const cityNames = getCityNames()
-const datasetOptions = cityDatasetOptions(cityNames)
+const datasetOptions = cityDatasetOptions(cityList)
 cityDataList.innerHTML = datasetOptions.join("\n")
